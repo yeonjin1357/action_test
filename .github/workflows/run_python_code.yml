@@ -32,7 +32,7 @@ jobs:
       - name: Check for changed files
         id: changed-files
         run: |
-          git diff --name-only --diff-filter=AM --cached | grep -q 'articles.json'
+          git diff --name-only --diff-filter=AM --cached | grep 'articles.json' || true
           echo "files_changed: $?" >> $GITHUB_ENV
 
       - name: Commit and push changes
