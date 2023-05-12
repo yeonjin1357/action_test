@@ -36,7 +36,7 @@ jobs:
           git config user.email "actions@github.com"
           git add .
           git commit -m "Update articles.json"
-          git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/Velog-crawler.git HEAD:main
+          git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/action_test.git HEAD:main
 
         env:
           pythonLocation: /opt/hostedtoolcache/Python/3.11.3/x64
