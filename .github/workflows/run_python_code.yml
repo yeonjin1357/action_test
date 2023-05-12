@@ -29,15 +29,22 @@ jobs:
       - name: Run Python script
         run: python crawler.py # 이곳에 실제 파이썬 파일명을 적어주세요.
 
+      - name: Check for changed files
+        id: changed-files
+        run: |
+          git diff --name-only --diff-filter=AM --cached | grep -q 'articles.json'
+          echo "files_changed: $?" >> $GITHUB_ENV
+
       - name: Commit and push changes
-        if: steps.changed-files.outputs.files_changed == 'true'
+        if: env.files_changed == '0'
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
           git commit -m "Update articles.json"
-          git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/action_test.git HEAD:main
-
+          git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/action_test.git
+          
         env:
           pythonLocation: /opt/hostedtoolcache/Python/3.11.3/x64
           LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.3/x64/lib
+
